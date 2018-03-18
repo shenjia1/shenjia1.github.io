@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[区块链学习笔记（1）]]></title>
+    <url>%2F2018%2F03%2F18%2F20180318%2F</url>
+    <content type="text"><![CDATA[0. 计划一年之计在于春，春天到了，给自己定了个小目标，深入学习区块链技术（作为一个业余码农，这个目标其实有点大。。。）。 1. 精通比特币从《精通比特币》这本书开始，这本只有300页不到，但是囊括了比特币技术原理设计到每一个细节，讲的很全面，也很清晰，接下去，我会根据我的理解，讲一下这本书中提及的一些算法的具体内容：比如密码学方面的椭圆曲线方程算法，比如哈希二叉树算法等等。 2.这只是一个开始下面附上我的今年书单： SEO实战密码具体数学，计算机科学基础组合数学python绝技，利用python成为顶级黑客深入理解机器学习应用密码学算法设计与分析基础区块链，原理，设计与应用代码大全2白帽子讲web安全量化投资，以python为工具零起点，python大数据与量化交易python黑帽子，黑客与渗透测试与编程之套深度学习算法实践go语言编程概率论及其应用 量化交易书单中低频量化交易策略研发投资学计量经济学漫步华尔街信号与噪声量化交易，自己动手做算法交易黑盒子，量化交易精要]]></content>
+      <tags>
+        <tag>书籍</tag>
+        <tag>区块链</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Hexo+Next+github搭建个人博客]]></title>
     <url>%2F2017%2F08%2F18%2F20180312%2F</url>
-    <content type="text"><![CDATA[0.开篇本来只是想找个地方记录每一天学习的内容，花了一段时间寻找合适的平台，但是依然没有找到。看到圈内很多大牛都有自己的博客，也想通过购买域名和服务器搭建自己的博客，这样对于一个菜鸟来说，成本有点高，忽然某一天发现可以通过github构建免费的博客，本篇仅通过参考Devin_的Hexo-Next-主题优化的方法，徒手建立，亲测有效，开启菜鸟之路。 1. 下载安装Hexo和NextHexo依赖Node.js，所以首先需要安装Node.js和npm，我是用的Mac系统，具体的安装方法是通过homebrew进行的，具体代码如下： 安装homebrewruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" ### 安装node.js brew install node ### 安装hexo npm install -g hexo ### 相关hexo命令 创建相应的博客目录后，就可以通过hexo init命令初始化，得到一篮子文件，开始搭建博客 hexo generate #得到一个静态页面 hexo clean #清除缓存文件 hexo deploy #同步github ### 主题Next 我选择了next主题，也可以选择其他主题，只需要把相应的主题拷贝theme目录下,[主题的相关说明文档](http://theme-next.iissnan.com/)里面后Next主题的基本操作。 ## 2. 注册github账号 注册GitHub账号，创建自己repo，相信每个程序员或伪程序员都知道github，小白可以自行google。 ## 3. 简单设置 本部分参考了[Mac下利用Hexo+GitHub搭建自己的博客](http://blog.csdn.net/qianqianstd/article/details/55823691),一步一步操作进行的。 ##### 检查SSH key，如果已经有的话，备份一下 cd ~/.ssh mkdir key_backup mv id_rsa* key_backup ##### 如果没有，根据下面的命令生成SSH key ssh-keygen -t rsa -C "xxxx@xxxx.com” ##### 将SSH key添加到Github 登录到GitHub页面，Account Settings->SSH Public Keys->Add another key将生成的key(id_rsa.pub文件）内容copy到输入框中，save。 ##### 设置个人信息 git config --global user.name "shenjia” git config --global user.email shenjia30615@163.com 修改hexo根目录下_config.yml文件（xxxx为你的github账户名称）deploy: type: github repo: git@github.com:xxxx/xxxx.github.io.git branch: master 提交本地博客到github上就可以了Hexo博客搭建已经完成了，并且可以git提交到github上，具体的提交通过在博客站点目录输入上面介绍的hexo的三个命令，具体如下，成功之后，通过访问xxxx.github.io就可以访问本博客。 hexo clean && hexo g && hexo d 先写这么多，还学了一些主题优化，后面慢慢加进来。第一次写技术博客，可能条理不清楚，慢慢加油。]]></content>
+    <content type="text"><![CDATA[0.开篇本来只是想找个地方记录每一天学习的内容，花了一段时间寻找合适的平台，但是依然没有找到。看到圈内很多大牛都有自己的博客，也想通过购买域名和服务器搭建自己的博客，这样对于一个菜鸟来说，成本有点高，忽然某一天发现可以通过github构建免费的博客，本篇仅通过参考Devin_的Hexo-Next-主题优化的方法，徒手建立，亲测有效，开启菜鸟之路。 1. 下载安装Hexo和NextHexo依赖Node.js，所以首先需要安装Node.js和npm，我是用的Mac系统，具体的安装方法是通过homebrew进行的，具体代码如下： 安装homebrewruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" 安装node.jsbrew install node 安装hexonpm install -g hexo 相关hexo命令创建相应的博客目录后，就可以通过hexo init命令初始化，得到一篮子文件，开始搭建博客 hexo generate #得到一个静态页面 hexo clean #清除缓存文件 hexo deploy #同步github 主题Next我选择了next主题，也可以选择其他主题，只需要把相应的主题拷贝theme目录下,主题的相关说明文档里面后Next主题的基本操作。 2. 注册github账号注册GitHub账号，创建自己repo，相信每个程序员或伪程序员都知道github，小白可以自行google。 3. 简单设置本部分参考了Mac下利用Hexo+GitHub搭建自己的博客,一步一步操作进行的。 检查SSH key，如果已经有的话，备份一下cd ~/.ssh mkdir key_backup mv id_rsa* key_backup 如果没有，根据下面的命令生成SSH keyssh-keygen -t rsa -C "xxxx@xxxx.com” 将SSH key添加到Github登录到GitHub页面，Account Settings-&gt;SSH Public Keys-&gt;Add another key将生成的key(id_rsa.pub文件）内容copy到输入框中，save。 设置个人信息git config --global user.name "shenjia” git config --global user.email shenjia30615@163.com 修改hexo根目录下_config.yml文件（xxxx为你的github账户名称）deploy: type: github repo: git@github.com:xxxx/xxxx.github.io.git branch: master 提交本地博客到github上就可以了，Hexo博客搭建已经完成了，并且可以git提交到github上，具体的提交通过在博客站点目录输入上面介绍的hexo的三个命令，具体如下，成功之后，通过访问xxxx.github.io就可以访问本博客。 hexo clean && hexo g && hexo d 先写这么多，还学了一些主题优化，后面慢慢加进来。第一次写技术博客，可能条理不清楚，慢慢加油。]]></content>
       <tags>
         <tag>Next</tag>
         <tag>GitHub</tag>
