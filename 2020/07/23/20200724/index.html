@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="序列比对,算法," />
 
 
 
@@ -86,13 +86,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="生物信息GO">
-<meta property="og:url" content="http://shenjia1.github.io/tags/生物信息/index.html">
+<meta name="description" content="引言序列比对是生物信息学的经典问题。为了解决生物序列比对的问题，人们已经开发了很多算法，其中包含精确比对，以及为了优化比对速度而诞生的启发式比对算法等等。Needleman-Wunsch算法是一种全局比对算法，也就是会考虑两条序列的所有碱基的比对算法，如下：   ATCGGGGGGGGG---GGGGGGCGCG  AT-GGGGGGG--CCC------CGCG  算法介绍（1）建立得分矩阵所">
+<meta name="keywords" content="序列比对,算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="序列比对（一） Needleman-Wunsch算法">
+<meta property="og:url" content="http://shenjia1.github.io/2020/07/23/20200724/index.html">
 <meta property="og:site_name" content="生物信息GO">
+<meta property="og:description" content="引言序列比对是生物信息学的经典问题。为了解决生物序列比对的问题，人们已经开发了很多算法，其中包含精确比对，以及为了优化比对速度而诞生的启发式比对算法等等。Needleman-Wunsch算法是一种全局比对算法，也就是会考虑两条序列的所有碱基的比对算法，如下：   ATCGGGGGGGGG---GGGGGGCGCG  AT-GGGGGGG--CCC------CGCG  算法介绍（1）建立得分矩阵所">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-07-24T16:30:25.004Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="生物信息GO">
+<meta name="twitter:title" content="序列比对（一） Needleman-Wunsch算法">
+<meta name="twitter:description" content="引言序列比对是生物信息学的经典问题。为了解决生物序列比对的问题，人们已经开发了很多算法，其中包含精确比对，以及为了优化比对速度而诞生的启发式比对算法等等。Needleman-Wunsch算法是一种全局比对算法，也就是会考虑两条序列的所有碱基的比对算法，如下：   ATCGGGGGGGGG---GGGGGGCGCG  AT-GGGGGGG--CCC------CGCG  算法介绍（1）建立得分矩阵所">
 
 
 
@@ -122,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://shenjia1.github.io/tags/生物信息/"/>
+  <link rel="canonical" href="http://shenjia1.github.io/2020/07/23/20200724/"/>
 
 
 
 
 
-  <title>标签: 生物信息 | 生物信息GO</title>
+  <title>序列比对（一） Needleman-Wunsch算法 | 生物信息GO</title>
   
 
 
@@ -147,7 +152,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
     <a href="https://github.com/you"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png" alt="Fork me on GitHub"></a>
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -295,54 +300,212 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>生物信息<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://shenjia1.github.io/2020/07/23/20200724/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="吐温先生">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/WechatIMG4.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="生物信息GO">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2020/07/22/20200722/" itemprop="url">
-              
-                <span itemprop="name">生物信息学与GO语言</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">序列比对（一） Needleman-Wunsch算法</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-07-22T22:41:18+08:00"
-              content="2020-07-22" >
-          07-22
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-23T22:41:18+08:00">
+                2020-07-23
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  822
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>序列比对是生物信息学的经典问题。为了解决生物序列比对的问题，人们已经开发了很多算法，其中包含精确比对，以及为了优化比对速度而诞生的启发式比对算法等等。Needleman-Wunsch算法是一种全局比对算法，也就是会考虑两条序列的所有碱基的比对算法，如下：</p>
+<pre> <code> ATCGGGGGGGGG---GGGGGGCGCG<br>  AT-GGGGGGG--CCC------CGCG<code></code></code></pre>
+
+<h2 id="算法介绍"><a href="#算法介绍" class="headerlink" title="算法介绍"></a>算法介绍</h2><h3 id="（1）建立得分矩阵"><a href="#（1）建立得分矩阵" class="headerlink" title="（1）建立得分矩阵"></a>（1）建立得分矩阵</h3><p>所谓得分矩阵，就是用于序列比对时计算比对得分，比对得分越高，就说明该比对越接近最优比对。根据比对的不同情况可以分为：完全匹配，错误匹配，插入空位三种情况。针对这三种不同的比对情况，我们可以根据得分矩阵进行打分处理。</p>
+<p>下表是一个得分矩阵的例子：<br>||0|A|T|C|G|<br>|—-|—-|—-|—–|—–|—–|<br>|0|0|-2|-2|-2|-2|<br>|A|-2|1|-1|-1|-1|<br>|T|-2|-1|1|-1|-1|<br>|C|-2|-1|-1|1|-1|<br>|G|-2|-1|-1|-1|1|</p>
+<p>以上只是一个比较简单的例子，没有根据生物学序列的具体问题进行设计。比如：根据不同碱基的错误匹配，可以给出不同的打分，当然这个针对氨基酸序列的比对更有意义；插入空位的情况在生物学序列中的出现的概率要比错误匹配的概率低很多，那么根据这个生物学特性，可以将插入空位的罚分设的更低。</p>
+<h3 id="（2）初始化相似性分数矩阵"><a href="#（2）初始化相似性分数矩阵" class="headerlink" title="（2）初始化相似性分数矩阵"></a>（2）初始化相似性分数矩阵</h3><p>假设有两条待比对的序列，根据得分矩阵计算每一个碱基之间的相似性分数，从而构建相似性得分矩阵，以(D序列)ACGCG和(Q序列)CCGACC两条序列为例：<br>||-|A|C|G|C|G|<br>|-|-|-|-|-|-|-|<br>|-|0|-2|-2|-2|-2|-2|<br>|C|-2<br>|C|-2<br>|G|-2<br>|A|-2<br>|C|-2<br>|C|-2<br>|</p>
+<p>根据上面的得分矩阵，可以得到碱基与空位的相似性分数为-2，所以把对应位置的相似性分数初始化为-2.</p>
+<h3 id="（3）根据下面的逻辑计算各个位置的相似性得分"><a href="#（3）根据下面的逻辑计算各个位置的相似性得分" class="headerlink" title="（3）根据下面的逻辑计算各个位置的相似性得分"></a>（3）根据下面的逻辑计算各个位置的相似性得分</h3><p>为了计算某个位置的相似性分数，需要考虑三个方向，横向，纵向和对角线。三个方向，其实是针对某个比对位置的三种比对方式，选择分数最大的一种比对方式。比较好理解的是对角线方向，也就是直接匹配。横向和纵向都是插入空格。</p>
+<blockquote>
+<p>对角线： V(i,j) = v(i-1,j-1) + F(D[i],Q[j]) <br><br>横向: V(i,j) = v(i-1,j) + F(D[i],-) <br><br>纵向：V(i,j) = v(i,j-1) + F(-,Q[j]) <br></p>
+</blockquote>
+<p>选择以上三种计算方式得到的最大相似性分数作为该位置的相似性分数。以此方法填充得到完整的相似性得分矩阵。</p>
+<h3 id="（4）通过回溯法，找到最佳比对，并得到最高得分"><a href="#（4）通过回溯法，找到最佳比对，并得到最高得分" class="headerlink" title="（4）通过回溯法，找到最佳比对，并得到最高得分"></a>（4）通过回溯法，找到最佳比对，并得到最高得分</h3><p>从相似性得分矩阵的右下角向上回溯，每次取三个方向的最大值作为走向，找到最佳比对，输出比对。</p>
+<p>以上是Needleman-Wunsch算法的整体思路，它主要思路是基于动态规划法。</p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    吐温先生
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://shenjia1.github.io/2020/07/23/20200724/" title="序列比对（一） Needleman-Wunsch算法">http://shenjia1.github.io/2020/07/23/20200724/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/序列比对/" rel="tag"><i class="fa fa-tag"></i> 序列比对</a>
+          
+            <a href="/tags/算法/" rel="tag"><i class="fa fa-tag"></i> 算法</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/07/22/20200722/" rel="next" title="生物信息学与GO语言">
+                <i class="fa fa-chevron-left"></i> 生物信息学与GO语言
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -350,6 +513,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -370,8 +537,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -442,6 +618,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法介绍"><span class="nav-number">2.</span> <span class="nav-text">算法介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（1）建立得分矩阵"><span class="nav-number">2.1.</span> <span class="nav-text">（1）建立得分矩阵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（2）初始化相似性分数矩阵"><span class="nav-number">2.2.</span> <span class="nav-text">（2）初始化相似性分数矩阵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（3）根据下面的逻辑计算各个位置的相似性得分"><span class="nav-number">2.3.</span> <span class="nav-text">（3）根据下面的逻辑计算各个位置的相似性得分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（4）通过回溯法，找到最佳比对，并得到最高得分"><span class="nav-number">2.4.</span> <span class="nav-text">（4）通过回溯法，找到最佳比对，并得到最高得分</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -578,6 +770,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
