@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="序列比对,算法," />
+  <meta name="keywords" content="算法,序列比对," />
 
 
 
@@ -87,14 +87,14 @@
 
 
 <meta name="description" content="引言序列比对是生物信息学的经典问题。为了解决生物序列比对的问题，人们已经开发了很多算法，其中包含精确比对，以及为了优化比对速度而诞生的启发式比对算法等等。Needleman-Wunsch算法是一种全局比对算法，也就是会考虑两条序列的所有碱基的比对算法，如下：   ATCGGGGGGGGG---GGGGGGCGCG  AT-GGGGGGG--CCC------CGCG  算法介绍（1）建立得分矩阵所">
-<meta name="keywords" content="序列比对,算法">
+<meta name="keywords" content="算法,序列比对">
 <meta property="og:type" content="article">
 <meta property="og:title" content="序列比对（一） Needleman-Wunsch算法">
 <meta property="og:url" content="http://shenjia1.github.io/2020/07/23/20200724/index.html">
 <meta property="og:site_name" content="生物信息GO">
 <meta property="og:description" content="引言序列比对是生物信息学的经典问题。为了解决生物序列比对的问题，人们已经开发了很多算法，其中包含精确比对，以及为了优化比对速度而诞生的启发式比对算法等等。Needleman-Wunsch算法是一种全局比对算法，也就是会考虑两条序列的所有碱基的比对算法，如下：   ATCGGGGGGGGG---GGGGGGCGCG  AT-GGGGGGG--CCC------CGCG  算法介绍（1）建立得分矩阵所">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-07-24T16:30:25.004Z">
+<meta property="og:updated_time" content="2020-07-25T06:57:42.988Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="序列比对（一） Needleman-Wunsch算法">
 <meta name="twitter:description" content="引言序列比对是生物信息学的经典问题。为了解决生物序列比对的问题，人们已经开发了很多算法，其中包含精确比对，以及为了优化比对速度而诞生的启发式比对算法等等。Needleman-Wunsch算法是一种全局比对算法，也就是会考虑两条序列的所有碱基的比对算法，如下：   ATCGGGGGGGGG---GGGGGGCGCG  AT-GGGGGGG--CCC------CGCG  算法介绍（1）建立得分矩阵所">
@@ -375,7 +375,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  822
+                  798
                 </span>
               
 
@@ -416,9 +416,114 @@
 <pre> <code> ATCGGGGGGGGG---GGGGGGCGCG<br>  AT-GGGGGGG--CCC------CGCG<code></code></code></pre>
 
 <h2 id="算法介绍"><a href="#算法介绍" class="headerlink" title="算法介绍"></a>算法介绍</h2><h3 id="（1）建立得分矩阵"><a href="#（1）建立得分矩阵" class="headerlink" title="（1）建立得分矩阵"></a>（1）建立得分矩阵</h3><p>所谓得分矩阵，就是用于序列比对时计算比对得分，比对得分越高，就说明该比对越接近最优比对。根据比对的不同情况可以分为：完全匹配，错误匹配，插入空位三种情况。针对这三种不同的比对情况，我们可以根据得分矩阵进行打分处理。</p>
-<p>下表是一个得分矩阵的例子：<br>||0|A|T|C|G|<br>|—-|—-|—-|—–|—–|—–|<br>|0|0|-2|-2|-2|-2|<br>|A|-2|1|-1|-1|-1|<br>|T|-2|-1|1|-1|-1|<br>|C|-2|-1|-1|1|-1|<br>|G|-2|-1|-1|-1|1|</p>
+<p>下表是一个得分矩阵的例子：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>0</th>
+<th>A</th>
+<th>T</th>
+<th>C</th>
+<th>G</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>-2</td>
+<td>-2</td>
+<td>-2</td>
+<td>-2</td>
+</tr>
+<tr>
+<td>A</td>
+<td>-2</td>
+<td>1</td>
+<td>-1</td>
+<td>-1</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>T</td>
+<td>-2</td>
+<td>-1</td>
+<td>1</td>
+<td>-1</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>C</td>
+<td>-2</td>
+<td>-1</td>
+<td>-1</td>
+<td>1</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>G</td>
+<td>-2</td>
+<td>-1</td>
+<td>-1</td>
+<td>-1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
 <p>以上只是一个比较简单的例子，没有根据生物学序列的具体问题进行设计。比如：根据不同碱基的错误匹配，可以给出不同的打分，当然这个针对氨基酸序列的比对更有意义；插入空位的情况在生物学序列中的出现的概率要比错误匹配的概率低很多，那么根据这个生物学特性，可以将插入空位的罚分设的更低。</p>
-<h3 id="（2）初始化相似性分数矩阵"><a href="#（2）初始化相似性分数矩阵" class="headerlink" title="（2）初始化相似性分数矩阵"></a>（2）初始化相似性分数矩阵</h3><p>假设有两条待比对的序列，根据得分矩阵计算每一个碱基之间的相似性分数，从而构建相似性得分矩阵，以(D序列)ACGCG和(Q序列)CCGACC两条序列为例：<br>||-|A|C|G|C|G|<br>|-|-|-|-|-|-|-|<br>|-|0|-2|-2|-2|-2|-2|<br>|C|-2<br>|C|-2<br>|G|-2<br>|A|-2<br>|C|-2<br>|C|-2<br>|</p>
+<h3 id="（2）初始化相似性分数矩阵"><a href="#（2）初始化相似性分数矩阵" class="headerlink" title="（2）初始化相似性分数矩阵"></a>（2）初始化相似性分数矩阵</h3><p>假设有两条待比对的序列，根据得分矩阵计算每一个碱基之间的相似性分数，从而构建相似性得分矩阵，以(D序列)ACGCG和(Q序列)CCGACC两条序列为例：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>-</th>
+<th>A</th>
+<th>C</th>
+<th>G</th>
+<th>C</th>
+<th>G</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-</td>
+<td>0</td>
+<td>-2</td>
+<td>-2</td>
+<td>-2</td>
+<td>-2</td>
+<td>-2</td>
+</tr>
+<tr>
+<td>C</td>
+<td>-2</td>
+</tr>
+<tr>
+<td>C</td>
+<td>-2</td>
+</tr>
+<tr>
+<td>G</td>
+<td>-2</td>
+</tr>
+<tr>
+<td>A</td>
+<td>-2</td>
+</tr>
+<tr>
+<td>C</td>
+<td>-2</td>
+</tr>
+<tr>
+<td>C</td>
+<td>-2</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p>根据上面的得分矩阵，可以得到碱基与空位的相似性分数为-2，所以把对应位置的相似性分数初始化为-2.</p>
 <h3 id="（3）根据下面的逻辑计算各个位置的相似性得分"><a href="#（3）根据下面的逻辑计算各个位置的相似性得分" class="headerlink" title="（3）根据下面的逻辑计算各个位置的相似性得分"></a>（3）根据下面的逻辑计算各个位置的相似性得分</h3><p>为了计算某个位置的相似性分数，需要考虑三个方向，横向，纵向和对角线。三个方向，其实是针对某个比对位置的三种比对方式，选择分数最大的一种比对方式。比较好理解的是对角线方向，也就是直接匹配。横向和纵向都是插入空格。</p>
 <blockquote>
@@ -462,9 +567,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/序列比对/" rel="tag"><i class="fa fa-tag"></i> 序列比对</a>
-          
             <a href="/tags/算法/" rel="tag"><i class="fa fa-tag"></i> 算法</a>
+          
+            <a href="/tags/序列比对/" rel="tag"><i class="fa fa-tag"></i> 序列比对</a>
           
         </div>
       
