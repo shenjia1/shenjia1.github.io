@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="算法,序列比对，局部比对," />
 
 
 
@@ -86,13 +86,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="生物信息GO">
-<meta property="og:url" content="http://shenjia1.github.io/tags/区块链/index.html">
+<meta name="description" content="引言上篇讲的Needleman-Wunsch算法是一种全局比对算法，也就是会将两条序列的所有部分都考虑进来。但针对短序列比对到长序列时，这种全局比对算法就不太合适了。也就是说，我们需要一种序列比对算法可以解决这种局部比对的问题。其实局部比对算法可以说是，全局比对算法的一种变型，下面我们来介绍具体的算法，Smith-Waterman算法。同时，也会介绍两种优化的策略：末端空位自由比对和空段罚分比对。">
+<meta name="keywords" content="算法,序列比对，局部比对">
+<meta property="og:type" content="article">
+<meta property="og:title" content="序列比对（二） 局部比对算法以及两种空位插入的优化策略">
+<meta property="og:url" content="http://shenjia1.github.io/2020/07/23/20200727/index.html">
 <meta property="og:site_name" content="生物信息GO">
+<meta property="og:description" content="引言上篇讲的Needleman-Wunsch算法是一种全局比对算法，也就是会将两条序列的所有部分都考虑进来。但针对短序列比对到长序列时，这种全局比对算法就不太合适了。也就是说，我们需要一种序列比对算法可以解决这种局部比对的问题。其实局部比对算法可以说是，全局比对算法的一种变型，下面我们来介绍具体的算法，Smith-Waterman算法。同时，也会介绍两种优化的策略：末端空位自由比对和空段罚分比对。">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-07-27T14:28:07.733Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="生物信息GO">
+<meta name="twitter:title" content="序列比对（二） 局部比对算法以及两种空位插入的优化策略">
+<meta name="twitter:description" content="引言上篇讲的Needleman-Wunsch算法是一种全局比对算法，也就是会将两条序列的所有部分都考虑进来。但针对短序列比对到长序列时，这种全局比对算法就不太合适了。也就是说，我们需要一种序列比对算法可以解决这种局部比对的问题。其实局部比对算法可以说是，全局比对算法的一种变型，下面我们来介绍具体的算法，Smith-Waterman算法。同时，也会介绍两种优化的策略：末端空位自由比对和空段罚分比对。">
 
 
 
@@ -122,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://shenjia1.github.io/tags/区块链/"/>
+  <link rel="canonical" href="http://shenjia1.github.io/2020/07/23/20200727/"/>
 
 
 
 
 
-  <title>标签: 区块链 | 生物信息GO</title>
+  <title>序列比对（二） 局部比对算法以及两种空位插入的优化策略 | 生物信息GO</title>
   
 
 
@@ -147,7 +152,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
     <a href="https://github.com/you"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png" alt="Fork me on GitHub"></a>
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -295,54 +300,216 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>区块链<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://shenjia1.github.io/2020/07/23/20200727/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="吐温先生">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/WechatIMG4.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="生物信息GO">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/03/18/20180318/" itemprop="url">
-              
-                <span itemprop="name">区块链学习笔记（一）</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">序列比对（二） 局部比对算法以及两种空位插入的优化策略</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-03-18T15:41:18+08:00"
-              content="2018-03-18" >
-          03-18
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-23T22:41:18+08:00">
+                2020-07-23
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  676
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>上篇讲的Needleman-Wunsch算法是一种全局比对算法，也就是会将两条序列的所有部分都考虑进来。但针对短序列比对到长序列时，这种全局比对算法就不太合适了。也就是说，我们需要一种序列比对算法可以解决这种局部比对的问题。其实局部比对算法可以说是，全局比对算法的一种变型，下面我们来介绍具体的算法，Smith-Waterman算法。同时，也会介绍两种优化的策略：末端空位自由比对和空段罚分比对。这两种策略都是对于空位的插入罚分的优化，可以让空段合理连续插入并且可以在首位和末尾插入。</p>
+<h1 id="算法介绍"><a href="#算法介绍" class="headerlink" title="算法介绍"></a>算法介绍</h1><h2 id="（1）Smith-Waterman算法"><a href="#（1）Smith-Waterman算法" class="headerlink" title="（1）Smith-Waterman算法"></a>（1）Smith-Waterman算法</h2><p>Smith-Waterman算法与Needleman-Wunsch算法的步骤基本一致，主要在以下三个方面做了调整：</p>
+<blockquote>
+<p>1.初始化相似性分数矩阵时，与空位的相似性分数都为0；<br><br>2.计算相似性分数，考虑三个方向的最大值时，最小值为0；<br><br>3.回溯时，遇到0则停止。</p>
+</blockquote>
+<h2 id="（2）末端空位自由比对"><a href="#（2）末端空位自由比对" class="headerlink" title="（2）末端空位自由比对"></a>（2）末端空位自由比对</h2><p>末端空位自由比对与全局比对算法一致，主要在以下方面做了调整：</p>
+<blockquote>
+<p>1.初始化相似性分数矩阵时，与空位的相似性分数都为0；<br><br>2.回溯时，从最后一列和最后一行的最大值开始回溯。</p>
+</blockquote>
+<h2 id="（3）空段罚分比对"><a href="#（3）空段罚分比对" class="headerlink" title="（3）空段罚分比对"></a>（3）空段罚分比对</h2><p>空段罚分比对主要是在迭代计算相似性分数方法上进行了优化，在空段罚分时，考虑了该位置周围的比对情况，对相应的位置的罚分进行了校正。<br>其中，在考虑空段时，插入空位和空位延伸给予了不同的罚分，Ws表示空位插入的罚分，Wg表示的是空位延伸的罚分，所以在初始化的过程中就会考虑空位的延伸问题，而不是将每一个空位的罚分都设为固定值。</p>
+<p>具体迭代计算规则如下：</p>
+<blockquote>
+<p>V(i,j) = Max(M(i,j),E(i,j),F(i,j))<br><br>M(i,j) = Max(M(i-1,j-1)+S(D,Q),E(i-1,j-1)+S(D,Q),F(i-1,j-1)+S(D,Q))<br><br>E(i,j) = Max(M(i,j-1)+Ws+Wg,E[i,j-1]+Ws)<br><br>F(i,j) = Max(M(i-1,j)+Ws+Wg,F(i-1,j)+Ws)</p>
+</blockquote>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>以上算法介绍部分的（2）和（3）是比对中引入的两种策略，这两种策略可以添加到全局比对和局部比对中去，都是对空位的处理方式的一种优化。</p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    吐温先生
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://shenjia1.github.io/2020/07/23/20200727/" title="序列比对（二） 局部比对算法以及两种空位插入的优化策略">http://shenjia1.github.io/2020/07/23/20200727/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag"><i class="fa fa-tag"></i> 算法</a>
+          
+            <a href="/tags/序列比对，局部比对/" rel="tag"><i class="fa fa-tag"></i> 序列比对，局部比对</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/07/22/20200722/" rel="next" title="生物信息学与GO语言">
+                <i class="fa fa-chevron-left"></i> 生物信息学与GO语言
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/07/23/20200724/" rel="prev" title="序列比对（一） Needleman-Wunsch算法">
+                序列比对（一） Needleman-Wunsch算法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -350,6 +517,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -370,8 +541,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -442,6 +622,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#算法介绍"><span class="nav-number">2.</span> <span class="nav-text">算法介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#（1）Smith-Waterman算法"><span class="nav-number">2.1.</span> <span class="nav-text">（1）Smith-Waterman算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（2）末端空位自由比对"><span class="nav-number">2.2.</span> <span class="nav-text">（2）末端空位自由比对</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（3）空段罚分比对"><span class="nav-number">2.3.</span> <span class="nav-text">（3）空段罚分比对</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -578,6 +774,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
