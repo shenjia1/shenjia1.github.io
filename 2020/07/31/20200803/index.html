@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="算法,BWT，BWA," />
 
 
 
@@ -86,14 +86,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Tagcloud">
-<meta property="og:url" content="http://shenjia1.github.io/tags/tags.html">
+<meta name="description" content="引言由于精确比对在处理数据量较大的序列比对问题时，耗时比较长，所以需要一些更快速的比对算法。比如之前为了解决数据库搜索问题，而产生的BLAST算法。我们今天介绍的BWT算法也是为了解决一个精确比对无法解决的问题，或者说在短时间内无法解决的问题。那就是短序列比对到特长序列上，如二代测序数据比对到人类基因组上。由于人类基因组序列长度很长，如果使用精确比对，一条短序列的比对就会耗时很久。这样就必须需要一">
+<meta name="keywords" content="算法,BWT，BWA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="序列比对（四） 启发式比对之BWT算法">
+<meta property="og:url" content="http://shenjia1.github.io/2020/07/31/20200803/index.html">
 <meta property="og:site_name" content="生物信息GO">
+<meta property="og:description" content="引言由于精确比对在处理数据量较大的序列比对问题时，耗时比较长，所以需要一些更快速的比对算法。比如之前为了解决数据库搜索问题，而产生的BLAST算法。我们今天介绍的BWT算法也是为了解决一个精确比对无法解决的问题，或者说在短时间内无法解决的问题。那就是短序列比对到特长序列上，如二代测序数据比对到人类基因组上。由于人类基因组序列长度很长，如果使用精确比对，一条短序列的比对就会耗时很久。这样就必须需要一">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-13T13:56:32.667Z">
+<meta property="og:updated_time" content="2020-08-03T16:12:17.202Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Tagcloud">
+<meta name="twitter:title" content="序列比对（四） 启发式比对之BWT算法">
+<meta name="twitter:description" content="引言由于精确比对在处理数据量较大的序列比对问题时，耗时比较长，所以需要一些更快速的比对算法。比如之前为了解决数据库搜索问题，而产生的BLAST算法。我们今天介绍的BWT算法也是为了解决一个精确比对无法解决的问题，或者说在短时间内无法解决的问题。那就是短序列比对到特长序列上，如二代测序数据比对到人类基因组上。由于人类基因组序列长度很长，如果使用精确比对，一条短序列的比对就会耗时很久。这样就必须需要一">
 
 
 
@@ -123,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://shenjia1.github.io/tags/tags.html"/>
+  <link rel="canonical" href="http://shenjia1.github.io/2020/07/31/20200803/"/>
 
 
 
 
 
-  <title>Tagcloud | 生物信息GO</title>
+  <title>序列比对（四） 启发式比对之BWT算法 | 生物信息GO</title>
   
 
 
@@ -298,33 +302,251 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://shenjia1.github.io/2020/07/31/20200803/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="吐温先生">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/WechatIMG4.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="生物信息GO">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">Tagcloud</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
+          <h1 class="post-title" itemprop="name headline">序列比对（四） 启发式比对之BWT算法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-31T22:41:18+08:00">
+                2020-07-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-      </div>
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  976
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>由于精确比对在处理数据量较大的序列比对问题时，耗时比较长，所以需要一些更快速的比对算法。比如之前为了解决数据库搜索问题，而产生的BLAST算法。我们今天介绍的BWT算法也是为了解决一个精确比对无法解决的问题，或者说在短时间内无法解决的问题。那就是短序列比对到特长序列上，如二代测序数据比对到人类基因组上。由于人类基因组序列长度很长，如果使用精确比对，一条短序列的比对就会耗时很久。这样就必须需要一种快速的比对方法来解决这个棘手的问题。<br>目前二代测序常用的软件也是基于BWT算法的，比如BWA，Bowtie等等。BWT算法原本是用于数据压缩的，在数据压缩上效率很高。下面我会根据我的理解，基于BWA软件的文章，简单介绍下BWT算法，包括，BWT转换，以及具体的比对方法。</p>
+<h1 id="算法简介"><a href="#算法简介" class="headerlink" title="算法简介"></a>算法简介</h1><h3 id="（一）BWT转换"><a href="#（一）BWT转换" class="headerlink" title="（一）BWT转换"></a>（一）BWT转换</h3><h4 id="1-BWT编码"><a href="#1-BWT编码" class="headerlink" title="1.BWT编码"></a>1.BWT编码</h4><p>原始序列：</p>
+<blockquote>
+<p>ACCGCGCGT</p>
+</blockquote>
+<p>加入$作为序列尾部字符：</p>
+<blockquote>
+<p>0  ACCGCGCGT$<br><br>1  CCGCGCGT$A<br><br>2  CGCGCGT$AC<br><br>3  GCGCGT$ACC<br><br>4  CGCGT$ACCG<br><br>5  GCGT$ACCGC<br><br>6  CGT$ACCGCG<br><br>7  GT$ACCGCGC<br><br>8  T$ACCGCGCG<br><br>9  $ACCGCGCGT<br></p>
+</blockquote>
+<p>按字典表排序：</p>
+<blockquote>
+<p>0  9  $ACCGCGCGT<br><br>1  0  ACCGCGCGT$<br><br>2  1  CCGCGCGT$A<br><br>3  2  CGCGCGT$AC<br><br>4  4  CGCGT$ACCG<br><br>5  6  CGT$ACCGCG<br><br>6  3  GCGCGT$ACC<br><br>7  5  GCGT$ACCGC<br><br>8  7  GT$ACCGCGC<br><br>9  8  T$ACCGCGCG<br></p>
+</blockquote>
+<p>BWT序列，就是排序后的矩阵的最后一列字符。</p>
+<blockquote>
+<p>T$ACGGCCCG</p>
+</blockquote>
+<p>如果对BWT序列进行一定的压缩，如T$AC2G3CG，就可以起到很好的压缩效果。</p>
+<h4 id="2-BWT解码"><a href="#2-BWT解码" class="headerlink" title="2. BWT解码"></a>2. BWT解码</h4><p>可以通过BWT序列（以下成为L列）和排序后矩阵的第一列序列(以下成为F列)，就可以还原原序列，具体的解码如下：<br>我们需要从L列的第一个字符开始，由于$字符是在所有字符之后，所有BWT序列的第一个字符一定是原序列的最后一个字符，所以我们由此开始</p>
+<blockquote>
+<p>T –&gt; 找到F列中第一个T的位置即（9），则从（9）中发现在L中的相应序号的位置的字符是G，即为T在原序列的前一个位置的字符</p>
+</blockquote>
+<p>以此类推，就可以还原原序列。</p>
+<p>解码伪代码：</p>
+<pre><code>def LF(r):
+    c = BWT[r]
+    return C(c) + Occ(c,r) + 1
+
+def BWT_reverse():
+    r = 1
+    T = ""
+    while (BWT[r] != "$"):
+        T = T + BWT[r]
+        r = LF(r)
+    return T
+</code></pre>
+
+<p>其中，C[c]的定义是，字典序小于字符c的所有字符个数。Occ[c,r]表示在BWT（T）中第r行之前出现字符c的个数。</p>
+<h3 id="（二）LP查询，精确匹配"><a href="#（二）LP查询，精确匹配" class="headerlink" title="（二）LP查询，精确匹配"></a>（二）LP查询，精确匹配</h3><p>也就是根据查询序列从参考序列中找到相应的比对位置。大致的思路与上面的解码类似，只是开始搜索的位置需要从F列开始，根据查询序列的最后一个字符在F列中的位置（一般会有多个位置）开始不断往前匹配，从而找到相应的位置。</p>
+<p>精确匹配伪代码：</p>
+<pre><code>def LF(c,r):
+    return C(c) + Occ(c,r) + 1
+
+def exactmatch(Q[1,q]):
+    c = Q[q]
+    sp = C[c] + 1
+    ep = C[c+1] + 1
+    i = q - 1
+    while (ep > sp) and (i > 0):
+        c = Q[i]
+        sp = LFC(c,sp)
+        ep = LFC(c,ep)
+        i = i - 1
+    return sp, ep</code></pre>
+
+<p>其中，c+1表示字典序比字符c大的下一个字符。</p>
+<h3 id="（三）小结"><a href="#（三）小结" class="headerlink" title="（三）小结"></a>（三）小结</h3><p>在具体算法实现过程中，比如软件BWA和Bowtie等，还会考虑内存和效率上的取舍，选择合适的方案，主要优化点在提前计算好一些数据，如C[c],Qcc(c,r)以及相应的位置信息等等，当然考虑到内存消耗也不会完全储存，会储存简化版。也会考虑mismatch和indel等等匹配。</p>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    吐温先生
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://shenjia1.github.io/2020/07/31/20200803/" title="序列比对（四） 启发式比对之BWT算法">http://shenjia1.github.io/2020/07/31/20200803/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag"><i class="fa fa-tag"></i> 算法</a>
+          
+            <a href="/tags/BWT，BWA/" rel="tag"><i class="fa fa-tag"></i> BWT，BWA</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/07/30/20200730/" rel="next" title="序列比对（三） 启发式比对之BLAST搜索算法">
+                <i class="fa fa-chevron-left"></i> 序列比对（三） 启发式比对之BLAST搜索算法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -357,8 +579,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -429,6 +660,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#算法简介"><span class="nav-number">2.</span> <span class="nav-text">算法简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（一）BWT转换"><span class="nav-number">2.0.1.</span> <span class="nav-text">（一）BWT转换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-BWT编码"><span class="nav-number">2.0.1.1.</span> <span class="nav-text">1.BWT编码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-BWT解码"><span class="nav-number">2.0.1.2.</span> <span class="nav-text">2. BWT解码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（二）LP查询，精确匹配"><span class="nav-number">2.0.2.</span> <span class="nav-text">（二）LP查询，精确匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（三）小结"><span class="nav-number">2.0.3.</span> <span class="nav-text">（三）小结</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
