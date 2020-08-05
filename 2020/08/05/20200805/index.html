@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="算法,BWT，BWA," />
+  <meta name="keywords" content="基因注释，基因,Annovar," />
 
 
 
@@ -86,18 +86,18 @@
 
 
 
-<meta name="description" content="引言由于精确比对在处理数据量较大的序列比对问题时，耗时比较长，所以需要一些更快速的比对算法。比如之前为了解决数据库搜索问题，而产生的BLAST算法。我们今天介绍的BWT算法也是为了解决一个精确比对无法解决的问题，或者说在短时间内无法解决的问题。那就是短序列比对到特长序列上，如二代测序数据比对到人类基因组上。由于人类基因组序列长度很长，如果使用精确比对，一条短序列的比对就会耗时很久。这样就必须需要一">
-<meta name="keywords" content="算法,BWT，BWA">
+<meta name="description" content="引言变异检测是人类基因组重测序过程中，比较重要的一个步骤。我们使用比对软件将二代测序得到的短序列映射到人类的参考基因组上之后，便是需要进行变异检测。所谓变异，分为点突变，插入删除，拷贝数变异，结构变异等等。不同变异的检测方法不同，当然针对不同类型的测序数据，也需要使用不同的检测方法。点突变的检测相对比较简单，需要从比对结果中找突变的位置，并通过统计学算法区分测序错误，比对错误和真实变异。 拷贝数变">
+<meta name="keywords" content="基因注释，基因,Annovar">
 <meta property="og:type" content="article">
-<meta property="og:title" content="序列比对（四） 启发式比对之BWT算法">
-<meta property="og:url" content="http://shenjia1.github.io/2020/07/31/20200803/index.html">
+<meta property="og:title" content="变异检测（一）之CNV检测">
+<meta property="og:url" content="http://shenjia1.github.io/2020/08/05/20200805/index.html">
 <meta property="og:site_name" content="生物信息GO">
-<meta property="og:description" content="引言由于精确比对在处理数据量较大的序列比对问题时，耗时比较长，所以需要一些更快速的比对算法。比如之前为了解决数据库搜索问题，而产生的BLAST算法。我们今天介绍的BWT算法也是为了解决一个精确比对无法解决的问题，或者说在短时间内无法解决的问题。那就是短序列比对到特长序列上，如二代测序数据比对到人类基因组上。由于人类基因组序列长度很长，如果使用精确比对，一条短序列的比对就会耗时很久。这样就必须需要一">
+<meta property="og:description" content="引言变异检测是人类基因组重测序过程中，比较重要的一个步骤。我们使用比对软件将二代测序得到的短序列映射到人类的参考基因组上之后，便是需要进行变异检测。所谓变异，分为点突变，插入删除，拷贝数变异，结构变异等等。不同变异的检测方法不同，当然针对不同类型的测序数据，也需要使用不同的检测方法。点突变的检测相对比较简单，需要从比对结果中找突变的位置，并通过统计学算法区分测序错误，比对错误和真实变异。 拷贝数变">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-08-03T16:12:17.202Z">
+<meta property="og:updated_time" content="2020-08-05T15:59:00.429Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="序列比对（四） 启发式比对之BWT算法">
-<meta name="twitter:description" content="引言由于精确比对在处理数据量较大的序列比对问题时，耗时比较长，所以需要一些更快速的比对算法。比如之前为了解决数据库搜索问题，而产生的BLAST算法。我们今天介绍的BWT算法也是为了解决一个精确比对无法解决的问题，或者说在短时间内无法解决的问题。那就是短序列比对到特长序列上，如二代测序数据比对到人类基因组上。由于人类基因组序列长度很长，如果使用精确比对，一条短序列的比对就会耗时很久。这样就必须需要一">
+<meta name="twitter:title" content="变异检测（一）之CNV检测">
+<meta name="twitter:description" content="引言变异检测是人类基因组重测序过程中，比较重要的一个步骤。我们使用比对软件将二代测序得到的短序列映射到人类的参考基因组上之后，便是需要进行变异检测。所谓变异，分为点突变，插入删除，拷贝数变异，结构变异等等。不同变异的检测方法不同，当然针对不同类型的测序数据，也需要使用不同的检测方法。点突变的检测相对比较简单，需要从比对结果中找突变的位置，并通过统计学算法区分测序错误，比对错误和真实变异。 拷贝数变">
 
 
 
@@ -127,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://shenjia1.github.io/2020/07/31/20200803/"/>
+  <link rel="canonical" href="http://shenjia1.github.io/2020/08/05/20200805/"/>
 
 
 
 
 
-  <title>序列比对（四） 启发式比对之BWT算法 | 生物信息GO</title>
+  <title>变异检测（一）之CNV检测 | 生物信息GO</title>
   
 
 
@@ -314,7 +314,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://shenjia1.github.io/2020/07/31/20200803/">
+    <link itemprop="mainEntityOfPage" href="http://shenjia1.github.io/2020/08/05/20200805/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="吐温先生">
@@ -331,7 +331,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">序列比对（四） 启发式比对之BWT算法</h1>
+          <h1 class="post-title" itemprop="name headline">变异检测（一）之CNV检测</h1>
         
 
         <div class="post-meta">
@@ -343,8 +343,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-31T22:41:18+08:00">
-                2020-07-31
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-05T22:41:18+08:00">
+                2020-08-05
               </time>
             
 
@@ -375,7 +375,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  976
+                  1,288
                 </span>
               
 
@@ -412,63 +412,18 @@
       
 
       
-        <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>由于精确比对在处理数据量较大的序列比对问题时，耗时比较长，所以需要一些更快速的比对算法。比如之前为了解决数据库搜索问题，而产生的BLAST算法。我们今天介绍的BWT算法也是为了解决一个精确比对无法解决的问题，或者说在短时间内无法解决的问题。那就是短序列比对到特长序列上，如二代测序数据比对到人类基因组上。由于人类基因组序列长度很长，如果使用精确比对，一条短序列的比对就会耗时很久。这样就必须需要一种快速的比对方法来解决这个棘手的问题。<br>目前二代测序常用的软件也是基于BWT算法的，比如BWA，Bowtie等等。BWT算法原本是用于数据压缩的，在数据压缩上效率很高。下面我会根据我的理解，基于BWA软件的文章，简单介绍下BWT算法，包括，BWT转换，以及具体的比对方法。</p>
-<h1 id="算法简介"><a href="#算法简介" class="headerlink" title="算法简介"></a>算法简介</h1><h3 id="（一）BWT转换"><a href="#（一）BWT转换" class="headerlink" title="（一）BWT转换"></a>（一）BWT转换</h3><h4 id="1-BWT编码"><a href="#1-BWT编码" class="headerlink" title="1.BWT编码"></a>1.BWT编码</h4><p>原始序列：</p>
-<blockquote>
-<p>ACCGCGCGT</p>
-</blockquote>
-<p>加入$作为序列尾部字符：</p>
-<blockquote>
-<p>0  ACCGCGCGT$<br><br>1  CCGCGCGT$A<br><br>2  CGCGCGT$AC<br><br>3  GCGCGT$ACC<br><br>4  CGCGT$ACCG<br><br>5  GCGT$ACCGC<br><br>6  CGT$ACCGCG<br><br>7  GT$ACCGCGC<br><br>8  T$ACCGCGCG<br><br>9  $ACCGCGCGT<br></p>
-</blockquote>
-<p>按字典表排序：</p>
-<blockquote>
-<p>0  9  $ACCGCGCGT<br><br>1  0  ACCGCGCGT$<br><br>2  1  CCGCGCGT$A<br><br>3  2  CGCGCGT$AC<br><br>4  4  CGCGT$ACCG<br><br>5  6  CGT$ACCGCG<br><br>6  3  GCGCGT$ACC<br><br>7  5  GCGT$ACCGC<br><br>8  7  GT$ACCGCGC<br><br>9  8  T$ACCGCGCG<br></p>
-</blockquote>
-<p>BWT序列，就是排序后的矩阵的最后一列字符。</p>
-<blockquote>
-<p>T$ACGGCCCG</p>
-</blockquote>
-<p>如果对BWT序列进行一定的压缩，如T$AC2G3CG，就可以起到很好的压缩效果。</p>
-<h4 id="2-BWT解码"><a href="#2-BWT解码" class="headerlink" title="2. BWT解码"></a>2. BWT解码</h4><p>可以通过BWT序列（以下成为L列）和排序后矩阵的第一列序列(以下成为F列)，就可以还原原序列，具体的解码如下：<br>我们需要从L列的第一个字符开始，由于$字符是在所有字符之后，所有BWT序列的第一个字符一定是原序列的最后一个字符，所以我们由此开始</p>
-<blockquote>
-<p>T –&gt; 找到F列中第一个T的位置即（9），则从（9）中发现在L中的相应序号的位置的字符是G，即为T在原序列的前一个位置的字符</p>
-</blockquote>
-<p>以此类推，就可以还原原序列。</p>
-<p>解码伪代码：</p>
-<pre><code>def LF(r):
-    c = BWT[r]
-    return C(c) + Occ(c,r) + 1
-
-def BWT_reverse():
-    r = 1
-    T = ""
-    while (BWT[r] != "$"):
-        T = T + BWT[r]
-        r = LF(r)
-    return T
-</code></pre>
-
-<p>其中，C[c]的定义是，字典序小于字符c的所有字符个数。Occ[c,r]表示在BWT（T）中第r行之前出现字符c的个数。</p>
-<h3 id="（二）LP查询，精确匹配"><a href="#（二）LP查询，精确匹配" class="headerlink" title="（二）LP查询，精确匹配"></a>（二）LP查询，精确匹配</h3><p>也就是根据查询序列从参考序列中找到相应的比对位置。大致的思路与上面的解码类似，只是开始搜索的位置需要从F列开始，根据查询序列的最后一个字符在F列中的位置（一般会有多个位置）开始不断往前匹配，从而找到相应的位置。</p>
-<p>精确匹配伪代码：</p>
-<pre><code>def LF(c,r):
-    return C(c) + Occ(c,r) + 1
-
-def exactmatch(Q[1,q]):
-    c = Q[q]
-    sp = C[c] + 1
-    ep = C[c+1] + 1
-    i = q - 1
-    while (ep > sp) and (i > 0):
-        c = Q[i]
-        sp = LFC(c,sp)
-        ep = LFC(c,ep)
-        i = i - 1
-    return sp, ep</code></pre>
-
-<p>其中，c+1表示字典序比字符c大的下一个字符。</p>
-<h3 id="（三）小结"><a href="#（三）小结" class="headerlink" title="（三）小结"></a>（三）小结</h3><p>在具体算法实现过程中，比如软件BWA和Bowtie等，还会考虑内存和效率上的取舍，选择合适的方案，主要优化点在提前计算好一些数据，如C[c],Qcc(c,r)以及相应的位置信息等等，当然考虑到内存消耗也不会完全储存，会储存简化版。也会考虑mismatch和indel等等匹配。</p>
+        <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>变异检测是人类基因组重测序过程中，比较重要的一个步骤。我们使用比对软件将二代测序得到的短序列映射到人类的参考基因组上之后，便是需要进行变异检测。<br>所谓变异，分为点突变，插入删除，拷贝数变异，结构变异等等。不同变异的检测方法不同，当然针对不同类型的测序数据，也需要使用不同的检测方法。点突变的检测相对比较简单，需要从比对结果中找突变的位置，并通过统计学算法区分测序错误，比对错误和真实变异。</p>
+<p>拷贝数变异也是一种变异类型，对拷贝数变异的检测，与点突变的检测方法不同。假设测序得到的短序列在整个参考基因组上分布均匀，那么如果所有区域拷贝数都是正常的话，那么所有区域的分布的序列数都一致。如果某个区域的分布的序列数出现异常，那么可以得到该区域的拷贝数出现了异常。正是根据这个假设，人们开始设计不同的基于测序覆盖度的拷贝数检测算法。</p>
+<p>根据不同的测序数据，可以分为全基因组拷贝数检测方法，全外显子组拷贝数检测方法。根据不同的检测目的，可以分为遗传性拷贝数变异检测方法，癌症基因组拷贝数检测方法。拷贝数检测软件有很多，具体的软件的列举，我会在另一篇文章中进行总结和介绍，下面我主要介绍几类拷贝数检测方法中涉及到的算法。</p>
+<h1 id="拷贝数变异检测算法"><a href="#拷贝数变异检测算法" class="headerlink" title="拷贝数变异检测算法"></a>拷贝数变异检测算法</h1><h2 id="一、全基因组检测方法"><a href="#一、全基因组检测方法" class="headerlink" title="一、全基因组检测方法"></a>一、全基因组检测方法</h2><h3 id="（1）划分窗口"><a href="#（1）划分窗口" class="headerlink" title="（1）划分窗口"></a>（1）划分窗口</h3><p>一般会根据测序深度进行窗口的划分，窗口划分的大小会影响CNV检测的大小。一般来说，测序深度越深，检测到的CNV的大小的下限就越小。<br>所以窗口大小的划分对检测结果是影响很大的。针对（0.5-1.5X）低深度的全基因测序，我们通常使用50kb的窗口滑动，滑动距离是5kb，这样的窗口设置也可以检测到1M左右的拷贝数变异，甚至是1M以下的。</p>
+<h3 id="（2）统计每一个窗口的序列计数或平均深度"><a href="#（2）统计每一个窗口的序列计数或平均深度" class="headerlink" title="（2）统计每一个窗口的序列计数或平均深度"></a>（2）统计每一个窗口的序列计数或平均深度</h3><p>根据设定的窗口，计算每一个窗口的序列计数或者平均深度，这个是判断该区域是否存在拷贝数变异的重要指标。</p>
+<h3 id="（3）对计数或深度进行校正"><a href="#（3）对计数或深度进行校正" class="headerlink" title="（3）对计数或深度进行校正"></a>（3）对计数或深度进行校正</h3><p>虽然我们做了全基因组序列分布均匀的假设，但是根据实际数据分析，某些区域因为某些原因，会出现序列分布不均匀的现象，这些现象的发生与拷贝数变异无关，而与一些序列特征有关，如GC含量等。发现了这个问题，一般算法都会对计数或测序深度进行GC校正或其他校正。校正的方法有很多，中位数校正，拟合回归校正等等。</p>
+<h3 id="（4）对完成校正后的数据进行CNV检测"><a href="#（4）对完成校正后的数据进行CNV检测" class="headerlink" title="（4）对完成校正后的数据进行CNV检测"></a>（4）对完成校正后的数据进行CNV检测</h3><p>这种CNV检测方法有很多，比如circular binary segmentation算法，HMM算法，或者直接设定阈值的简单算法。</p>
+<p>根据以上的四个步骤，即使不使用参照集（或者说是外部参照），也可以进行CNV的检测。</p>
+<h2 id="二、全外显子组检测方法"><a href="#二、全外显子组检测方法" class="headerlink" title="二、全外显子组检测方法"></a>二、全外显子组检测方法</h2><p>全外显组拷贝数变异的检测与全基因组的最大的不同就在于之前的假设上，全外显组靶向捕获技术由于捕获效率的不同，导致不同的目标区域获取的序列数目是不同的，即使是同一个panel，不同时间不同人员的操作，可能都会对捕获效率有所影响，这就造成了拷贝数变异检测的困难。<br>在这样的情况下，人们不得不使用外部参照，通过参照集的比较，找到异常的区域，从而发现CNV。</p>
+<h1 id="拷贝数检测几个相关问题"><a href="#拷贝数检测几个相关问题" class="headerlink" title="拷贝数检测几个相关问题"></a>拷贝数检测几个相关问题</h1><h3 id="（1）序列数和平均测序深度"><a href="#（1）序列数和平均测序深度" class="headerlink" title="（1）序列数和平均测序深度"></a>（1）序列数和平均测序深度</h3><p>我认为统计序列数和平均深度差异并不是很大，可能在测序深度很深情况下，对于较小的CNV检测是会有影响，因为两者在区域边缘处理上会有所差异。</p>
+<h3 id="（2）参照集的选择"><a href="#（2）参照集的选择" class="headerlink" title="（2）参照集的选择"></a>（2）参照集的选择</h3><p>参照集的选择建议尽量选择同一个实验批次的样本，最为合适。这里对于全外显子组数据要求更高。</p>
+<h3 id="（3）杂合子分析"><a href="#（3）杂合子分析" class="headerlink" title="（3）杂合子分析"></a>（3）杂合子分析</h3><p>由于拷贝数的变化也会引起该区域内杂合子的缺失，所以有时杂合子的缺失也是拷贝数变异的一个佐证，在分析过程中，有的算法也会把这部分的信息考虑进来。</p>
 
       
     </div>
@@ -489,7 +444,7 @@ def exactmatch(Q[1,q]):
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://shenjia1.github.io/2020/07/31/20200803/" title="序列比对（四） 启发式比对之BWT算法">http://shenjia1.github.io/2020/07/31/20200803/</a>
+    <a href="http://shenjia1.github.io/2020/08/05/20200805/" title="变异检测（一）之CNV检测">http://shenjia1.github.io/2020/08/05/20200805/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -504,9 +459,9 @@ def exactmatch(Q[1,q]):
       
         <div class="post-tags">
           
-            <a href="/tags/算法/" rel="tag"><i class="fa fa-tag"></i> 算法</a>
+            <a href="/tags/基因注释，基因/" rel="tag"><i class="fa fa-tag"></i> 基因注释，基因</a>
           
-            <a href="/tags/BWT，BWA/" rel="tag"><i class="fa fa-tag"></i> BWT，BWA</a>
+            <a href="/tags/Annovar/" rel="tag"><i class="fa fa-tag"></i> Annovar</a>
           
         </div>
       
@@ -519,8 +474,8 @@ def exactmatch(Q[1,q]):
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/07/30/20200730/" rel="next" title="序列比对（三） 启发式比对之BLAST搜索算法">
-                <i class="fa fa-chevron-left"></i> 序列比对（三） 启发式比对之BLAST搜索算法
+              <a href="/2020/07/31/20200803/" rel="next" title="序列比对（四） 启发式比对之BWT算法">
+                <i class="fa fa-chevron-left"></i> 序列比对（四） 启发式比对之BWT算法
               </a>
             
           </div>
@@ -528,10 +483,6 @@ def exactmatch(Q[1,q]):
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/08/05/20200805/" rel="prev" title="变异检测（一）之CNV检测">
-                变异检测（一）之CNV检测 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -674,7 +625,7 @@ def exactmatch(Q[1,q]):
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#算法简介"><span class="nav-number">2.</span> <span class="nav-text">算法简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（一）BWT转换"><span class="nav-number">2.0.1.</span> <span class="nav-text">（一）BWT转换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-BWT编码"><span class="nav-number">2.0.1.1.</span> <span class="nav-text">1.BWT编码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-BWT解码"><span class="nav-number">2.0.1.2.</span> <span class="nav-text">2. BWT解码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（二）LP查询，精确匹配"><span class="nav-number">2.0.2.</span> <span class="nav-text">（二）LP查询，精确匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（三）小结"><span class="nav-number">2.0.3.</span> <span class="nav-text">（三）小结</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#拷贝数变异检测算法"><span class="nav-number">2.</span> <span class="nav-text">拷贝数变异检测算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、全基因组检测方法"><span class="nav-number">2.1.</span> <span class="nav-text">一、全基因组检测方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（1）划分窗口"><span class="nav-number">2.1.1.</span> <span class="nav-text">（1）划分窗口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（2）统计每一个窗口的序列计数或平均深度"><span class="nav-number">2.1.2.</span> <span class="nav-text">（2）统计每一个窗口的序列计数或平均深度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（3）对计数或深度进行校正"><span class="nav-number">2.1.3.</span> <span class="nav-text">（3）对计数或深度进行校正</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（4）对完成校正后的数据进行CNV检测"><span class="nav-number">2.1.4.</span> <span class="nav-text">（4）对完成校正后的数据进行CNV检测</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、全外显子组检测方法"><span class="nav-number">2.2.</span> <span class="nav-text">二、全外显子组检测方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#拷贝数检测几个相关问题"><span class="nav-number">3.</span> <span class="nav-text">拷贝数检测几个相关问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（1）序列数和平均测序深度"><span class="nav-number">3.0.1.</span> <span class="nav-text">（1）序列数和平均测序深度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（2）参照集的选择"><span class="nav-number">3.0.2.</span> <span class="nav-text">（2）参照集的选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（3）杂合子分析"><span class="nav-number">3.0.3.</span> <span class="nav-text">（3）杂合子分析</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
