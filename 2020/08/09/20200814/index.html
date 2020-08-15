@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="GO,生物信息,算法," />
+  <meta name="keywords" content="SNP变异，检测软件," />
 
 
 
@@ -86,18 +86,18 @@
 
 
 
-<meta name="description" content="生物信息学是一门工具性的学科，主要是编写，使用软件去解决生物学问题。换句话说，生物信息学是一门关于数学，统计学，生物学的交叉学科。为了解决具体的生物学问题，目前已经有了许多优秀的生物信息学算法和软件。这些软件有的是使用perl写的，比如Annovar等；有的是使用C/C++写的，比如bwa等；有的是使用Python写的，比如cnvkit等，也有使用Java编写的，如Exomiser等。已有的软件经">
-<meta name="keywords" content="GO,生物信息,算法">
+<meta name="description" content="引言点突变和插入删除突变是比较常见的变异类型。所谓点突变就是简单的单个碱基的替换，插入删除突变是一个及一个以上碱基的删除或插入，在比对上就是会引入空位。这样的突变的检测，理论上来说在比对结果中可以被识别。但是由于背景噪声的存在，经常需要应用统计学的方法进行去噪声，然后才能对真正的变异进行识别。这样的统计学方法在处理体细胞突变的检测问题中显的尤为重要。因为体细胞突变的突变频率有时往往很低，隐藏在背景">
+<meta name="keywords" content="SNP变异，检测软件">
 <meta property="og:type" content="article">
-<meta property="og:title" content="生物信息学与GO语言">
-<meta property="og:url" content="http://shenjia1.github.io/2020/07/22/20200722/index.html">
+<meta property="og:title" content="变异检测（三）之点突变检测">
+<meta property="og:url" content="http://shenjia1.github.io/2020/08/09/20200814/index.html">
 <meta property="og:site_name" content="生物信息GO">
-<meta property="og:description" content="生物信息学是一门工具性的学科，主要是编写，使用软件去解决生物学问题。换句话说，生物信息学是一门关于数学，统计学，生物学的交叉学科。为了解决具体的生物学问题，目前已经有了许多优秀的生物信息学算法和软件。这些软件有的是使用perl写的，比如Annovar等；有的是使用C/C++写的，比如bwa等；有的是使用Python写的，比如cnvkit等，也有使用Java编写的，如Exomiser等。已有的软件经">
+<meta property="og:description" content="引言点突变和插入删除突变是比较常见的变异类型。所谓点突变就是简单的单个碱基的替换，插入删除突变是一个及一个以上碱基的删除或插入，在比对上就是会引入空位。这样的突变的检测，理论上来说在比对结果中可以被识别。但是由于背景噪声的存在，经常需要应用统计学的方法进行去噪声，然后才能对真正的变异进行识别。这样的统计学方法在处理体细胞突变的检测问题中显的尤为重要。因为体细胞突变的突变频率有时往往很低，隐藏在背景">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-08-12T13:25:06.149Z">
+<meta property="og:updated_time" content="2020-08-15T12:30:02.333Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="生物信息学与GO语言">
-<meta name="twitter:description" content="生物信息学是一门工具性的学科，主要是编写，使用软件去解决生物学问题。换句话说，生物信息学是一门关于数学，统计学，生物学的交叉学科。为了解决具体的生物学问题，目前已经有了许多优秀的生物信息学算法和软件。这些软件有的是使用perl写的，比如Annovar等；有的是使用C/C++写的，比如bwa等；有的是使用Python写的，比如cnvkit等，也有使用Java编写的，如Exomiser等。已有的软件经">
+<meta name="twitter:title" content="变异检测（三）之点突变检测">
+<meta name="twitter:description" content="引言点突变和插入删除突变是比较常见的变异类型。所谓点突变就是简单的单个碱基的替换，插入删除突变是一个及一个以上碱基的删除或插入，在比对上就是会引入空位。这样的突变的检测，理论上来说在比对结果中可以被识别。但是由于背景噪声的存在，经常需要应用统计学的方法进行去噪声，然后才能对真正的变异进行识别。这样的统计学方法在处理体细胞突变的检测问题中显的尤为重要。因为体细胞突变的突变频率有时往往很低，隐藏在背景">
 
 
 
@@ -127,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://shenjia1.github.io/2020/07/22/20200722/"/>
+  <link rel="canonical" href="http://shenjia1.github.io/2020/08/09/20200814/"/>
 
 
 
 
 
-  <title>生物信息学与GO语言 | 生物信息GO</title>
+  <title>变异检测（三）之点突变检测 | 生物信息GO</title>
   
 
 
@@ -314,7 +314,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://shenjia1.github.io/2020/07/22/20200722/">
+    <link itemprop="mainEntityOfPage" href="http://shenjia1.github.io/2020/08/09/20200814/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="吐温先生">
@@ -331,7 +331,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">生物信息学与GO语言</h1>
+          <h1 class="post-title" itemprop="name headline">变异检测（三）之点突变检测</h1>
         
 
         <div class="post-meta">
@@ -343,8 +343,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-22T22:41:18+08:00">
-                2020-07-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-09T22:41:18+08:00">
+                2020-08-09
               </time>
             
 
@@ -375,7 +375,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,210
+                  1,648
                 </span>
               
 
@@ -391,7 +391,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4
+                  6
                 </span>
               
             </div>
@@ -412,8 +412,43 @@
       
 
       
-        <p>生物信息学是一门工具性的学科，主要是编写，使用软件去解决生物学问题。换句话说，生物信息学是一门关于数学，统计学，生物学的交叉学科。为了解决具体的生物学问题，目前已经有了许多优秀的生物信息学算法和软件。这些软件有的是使用perl写的，比如Annovar等；有的是使用C/C++写的，比如bwa等；有的是使用Python写的，比如cnvkit等，也有使用Java编写的，如Exomiser等。已有的软件经过了使用者和开发者的测试使用验证，在准确性上都有了很高的保证。<br>在这种情况下，有的生物信息学分析步骤已经比较成熟了，也已经有了规范，一般我们不需要自己从头开发软件去解决问题，只需要使用脚本语言组合现有的软件搭建合适的流程去解决问题，因为现有的工具已经足够了。但是，同时也有一些方面，现有的软件并不能很好的解决，或者说这个解决问题的方法比较个性化，这个时候就需要我们自己造轮子了。所以，我认为不管是已经有了优秀软件的，还是还没有合适软件的，我们都要尝试自己造轮子，去解决具体的生物学问题，这样对使用生物信息方法解决问题这件事会有自己独特的理解。<br>我们以最基础的生物信息问题举例，序列比对问题。序列比对，简单来说是一个字符串匹配的问题。一般来说，分为以下几种情况：短序列比对到长序列；短序列比对到一组长序列；多序列比对；长序列比对。解决不同的情况，需要应用不同的算法，即使使用现有的比对软件，也需要使用不同的参数。所以如果不了解其中的具体算法，是很难真正解决一个生物学问题的。<br>上面也提到了，生物信息软件可以使用各类不同的编程语言，使用较多的应该是perl，python，C/C++.Perl语言在字符串处理方面有独特的优势，且它又是脚本语言，开发速度比较快，在生物信息学中使用广泛。Python语言具有广泛的第三方库，在需要使用一些统计学算法时，不需要从头编写，直接可以使用三方库即可实现，开发速度快且方便，近年来有取代perl的趋势。C/C++主要在解决一些性能要求比较高的问题时需要，但是相对开发速度较慢。<br>GO语言是由Google开发的编译型语言。语法与C语言类似，学习曲线平缓，容易上手，代码也易读。开发效率和运行效率表现都很好。如果使用GO语言对一些已有的软件进行重构，可能是一件有趣的事情。既可以学习使用GO语言去解决生物学问题，又可以对具体的生物信息学算法有一个全面的认识，我觉得这不失为一种有效的学习方法。下面是我具体的一个计划：</p>
-<h3 id="（1）序列比对："><a href="#（1）序列比对：" class="headerlink" title="（1）序列比对："></a>（1）序列比对：</h3><h5 id="精确比对：NW算法的实现，SW算法的实现"><a href="#精确比对：NW算法的实现，SW算法的实现" class="headerlink" title="精确比对：NW算法的实现，SW算法的实现"></a>精确比对：NW算法的实现，SW算法的实现</h5><h5 id="启发式比对：BLAST算法的实现"><a href="#启发式比对：BLAST算法的实现" class="headerlink" title="启发式比对：BLAST算法的实现"></a>启发式比对：BLAST算法的实现</h5><h5 id="其他比对：BWT比对算法的实现"><a href="#其他比对：BWT比对算法的实现" class="headerlink" title="其他比对：BWT比对算法的实现"></a>其他比对：BWT比对算法的实现</h5><h5 id="多序列比对算法的实现"><a href="#多序列比对算法的实现" class="headerlink" title="多序列比对算法的实现"></a>多序列比对算法的实现</h5><h3 id="（2）变异检测："><a href="#（2）变异检测：" class="headerlink" title="（2）变异检测："></a>（2）变异检测：</h3><h5 id="SNV检测：遗传性变异检测算法的实现，体细胞变异检测算法的实现"><a href="#SNV检测：遗传性变异检测算法的实现，体细胞变异检测算法的实现" class="headerlink" title="SNV检测：遗传性变异检测算法的实现，体细胞变异检测算法的实现"></a>SNV检测：遗传性变异检测算法的实现，体细胞变异检测算法的实现</h5><h5 id="Indel检测：重比对检测算法的实现，局部组装检测算法的实现"><a href="#Indel检测：重比对检测算法的实现，局部组装检测算法的实现" class="headerlink" title="Indel检测：重比对检测算法的实现，局部组装检测算法的实现"></a>Indel检测：重比对检测算法的实现，局部组装检测算法的实现</h5><h5 id="CNV检测：Exon-CNV检测算法的实现，全基因组CNV检测算法的实现"><a href="#CNV检测：Exon-CNV检测算法的实现，全基因组CNV检测算法的实现" class="headerlink" title="CNV检测：Exon CNV检测算法的实现，全基因组CNV检测算法的实现"></a>CNV检测：Exon CNV检测算法的实现，全基因组CNV检测算法的实现</h5><h5 id="SV-FUSION检测：Split-reads重比对检测算法的实现，DNA-RNA分析算法的实现"><a href="#SV-FUSION检测：Split-reads重比对检测算法的实现，DNA-RNA分析算法的实现" class="headerlink" title="SV/FUSION检测：Split reads重比对检测算法的实现，DNA/RNA分析算法的实现"></a>SV/FUSION检测：Split reads重比对检测算法的实现，DNA/RNA分析算法的实现</h5><h3 id="（3）变异注释："><a href="#（3）变异注释：" class="headerlink" title="（3）变异注释："></a>（3）变异注释：</h3><h5 id="Annovar软件算法的实现"><a href="#Annovar软件算法的实现" class="headerlink" title="Annovar软件算法的实现"></a>Annovar软件算法的实现</h5><h3 id="（4）基因表型分析软件"><a href="#（4）基因表型分析软件" class="headerlink" title="（4）基因表型分析软件"></a>（4）基因表型分析软件</h3><h5 id="Exomiser的基本算法介绍"><a href="#Exomiser的基本算法介绍" class="headerlink" title="Exomiser的基本算法介绍"></a>Exomiser的基本算法介绍</h5><h3 id="（5）ACMG自动化"><a href="#（5）ACMG自动化" class="headerlink" title="（5）ACMG自动化"></a>（5）ACMG自动化</h3><h5 id="SNV-CNV自动化分类"><a href="#SNV-CNV自动化分类" class="headerlink" title="SNV/CNV自动化分类"></a>SNV/CNV自动化分类</h5><h3 id="（6）其他："><a href="#（6）其他：" class="headerlink" title="（6）其他："></a>（6）其他：</h3><h5 id="UPD-LOH检测算法的实现"><a href="#UPD-LOH检测算法的实现" class="headerlink" title="UPD/LOH检测算法的实现"></a>UPD/LOH检测算法的实现</h5><h5 id="HLA分型"><a href="#HLA分型" class="headerlink" title="HLA分型"></a>HLA分型</h5><h5 id="性别计算"><a href="#性别计算" class="headerlink" title="性别计算"></a>性别计算</h5><h5 id="可视化交互界面的实现"><a href="#可视化交互界面的实现" class="headerlink" title="可视化交互界面的实现"></a>可视化交互界面的实现</h5><h5 id="流程构建框架"><a href="#流程构建框架" class="headerlink" title="流程构建框架"></a>流程构建框架</h5><h5 id="TMB的计算"><a href="#TMB的计算" class="headerlink" title="TMB的计算"></a>TMB的计算</h5><h5 id="MSI的分析"><a href="#MSI的分析" class="headerlink" title="MSI的分析"></a>MSI的分析</h5><p>以上计划是一个比较庞大的项目，每一个算法，我都会选择一个或多个现有的软件进行分析，在此基础上使用GO语言对算法进行简单重构，主要目的是为了理解算法，当然在理解算法的基础上，能对现有的算法进行优化，那是最好的结果。</p>
+        <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>点突变和插入删除突变是比较常见的变异类型。所谓点突变就是简单的单个碱基的替换，插入删除突变是一个及一个以上碱基的删除或插入，在比对上就是会引入空位。这样的突变的检测，理论上来说在比对结果中可以被识别。但是由于背景噪声的存在，经常需要应用统计学的方法进行去噪声，然后才能对真正的变异进行识别。这样的统计学方法在处理体细胞突变的检测问题中显的尤为重要。因为体细胞突变的突变频率有时往往很低，隐藏在背景噪声中，很难被发现。为此，科学家开发了很多针对性的软件解决这个问题，如Mutect，VarScan等等。近年来，也有科学家将深度学习的算法引入到突变的检测识别方法中来，主要是由于基因数据积累的越来越多，可以通过深度学习的方法将真实突变从复杂的噪声中识别出来，这样的方法也取得了比较好的效果，比如GATK4中就引入了深度学习的方法进行变异位点的过滤。</p>
+<p>针对插入删除变异的检测识别问题，同样存在一个难点，那就是比对的问题。复杂的插入删除突变有时在比对会与原序列出现很大差异，这给比对造成很大困难，而造成检测识别的失败。针对这个问题，科学家也开发了很多针对性的算法，如重比对，局部组装等等。</p>
+<h1 id="算法简介"><a href="#算法简介" class="headerlink" title="算法简介"></a>算法简介</h1><h2 id="点突变的检测"><a href="#点突变的检测" class="headerlink" title="点突变的检测"></a>点突变的检测</h2><p>简单的来说，点突变的检测主要是一个分类问题，以体细胞突变的检测识别为例，这个检测识别主要是区分真实突变与背景噪声，其中背景噪声包括“比对错误”，“测序错误”，“遗传性变异”等等。不同的噪声有其一定的特征，比如可以根据测序质量及链偏向性去估计测序错误的可能性。其实，这就是一个统计学上的分类问题。既然是一个分类问题，那么就可以使用很多统计学的分类算法去解决它。下面，我举几个例子，他们是比较著名的软件中使用的统计学方法，主要会介绍他们的算法，并介绍他们选择的特征。</p>
+<p>很多软件都使用的是贝叶斯算法。下面，我就以一个经典的体细胞变异检测的软件的算法为例，简单介绍下贝叶斯公式在变异检测中的应用。<br>所谓的贝叶斯公式是基于条件概率的统计学方法。贝叶斯公式中，事件Bi的概率为P(Bi)，事件Bi已发生条件下事件A的概率为P(A│Bi)，事件A发生条件下事件Bi的概率为P(Bi│A)。<br>MuTect软件包含了两个贝叶斯分类器，第一个是区分该位置是否发生突变，第二个是区分该变异是否为体细胞变异。</p>
+<h5 id="第一个贝叶斯分类器"><a href="#第一个贝叶斯分类器" class="headerlink" title="第一个贝叶斯分类器"></a>第一个贝叶斯分类器</h5><p>下面，我们首先介绍第一个贝叶斯分类器。首先，我们设定是某个位置，然后开始使用这个分类器去区分这个位置是否发生突变。<br>r表示参考基因组：{A,T,C,G}<br>b表示该位点的碱基：{A,T,C,G}<br>e表示该位点的质量，也就是发生测序错误的可能性，它的计算方法与该碱基的测序质量Q有关。e等于10的-q/10次方。<br>假设了两个模型：<br>M0:该位点没有发生突变，所有与参考基因组不一样的碱基都是测序错误；<br>Mf：该位点发生了突变，且突变频率是f，M0其实等于f=0的Mf。</p>
+<p>下面我可以计算M的似然：<br>LOD(M) = P(bi|ei,r,m,f)的积<br>其中每一个bi都是每i个reads比对到该位置碱基，ei是该碱基的质量。计算出得到P，具体计算方法如下：</p>
+<p>如果bi是参考基因组的碱基类型，那么</p>
+<blockquote>
+<p>P = f * ei/3 + (1-f)(1-ei) </p>
+</blockquote>
+<blockquote>
+<p>意义: 因为该位点的突变频率是f，所以说明有f的碱基是非参考基因组的碱基类型，但bi是参考基因组的碱基类型，所以f的碱基是测序错误，而其他的1-f的碱基是没有测序错误的，其中ei的概率是测错的，那么某个碱基类型的测错的概率就是ei/3.</p>
+</blockquote>
+<p>如果bi不是突变的碱基类型，那么</p>
+<blockquote>
+<p>P = (1-f) * ei /3 + f(1-ei)</p>
+</blockquote>
+<p>如果bi是其他的情况，那么：</p>
+<blockquote>
+<p>P = ei / 3</p>
+</blockquote>
+<p>m是突变的碱基类型，也就是有除了参考基因组碱基类型外还有三种碱基类型。需要比较两个模型的似然，才能识别该位点是否发生突变：</p>
+<blockquote>
+<p>LOD(m,f) = log10(L(Mf)<em>P(m,f)/L(M0)</em>(1-P(m,f)))</p>
+</blockquote>
+<p>如果LOD(m,f)大于log10Qt，那么就认为m是一个突变碱基。Qt在MuTect最初的文献中被设定为6.3，表示该位点突变的置信度是背景噪声的6.3倍以上。根据以上的公式，现在可以区分该位点是否存在突变。其中P(m,f)与f的值还未知，P(m,f)可以通过P(m)和P(f)计算得到，假设两者是统计学上独立的，P(f)是均一分布，P(f) = 1,P(m)是一个经验值，文献中将它设置为 3 × 10−6。<br>针对f的值，可以通过最大似然估计计算得到，也可以通过突变碱基数处理总测序深度得到。</p>
+<h5 id="第二个贝叶斯分类器"><a href="#第二个贝叶斯分类器" class="headerlink" title="第二个贝叶斯分类器"></a>第二个贝叶斯分类器</h5><p>第二个贝叶斯分类器是用于区分遗传性突变和体细胞突变的。基本的模型与第一个分类器类似，其中f被设置为0.5，因为理论上遗传性突变是杂合的。</p>
+<blockquote>
+<p>LOD(N) = log10(L(M0)<em>P(m,f)/L(M0.5)</em>P(germline))</p>
+</blockquote>
+<p>就是只有大于log10Qn时才被认为是体细胞突变。<br>其中P(germline)和Qn阈值设定如下：</p>
+<blockquote>
+<p>P(germline|non-dbSNP site) = 5 × 10−5 Qn|non–dbSNP site = 2.2</p>
+</blockquote>
+<blockquote>
+<p>P(germ line|dbSNP site) = 0.095 θn|dbSNP site = 5.5</p>
+</blockquote>
 
       
     </div>
@@ -434,7 +469,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://shenjia1.github.io/2020/07/22/20200722/" title="生物信息学与GO语言">http://shenjia1.github.io/2020/07/22/20200722/</a>
+    <a href="http://shenjia1.github.io/2020/08/09/20200814/" title="变异检测（三）之点突变检测">http://shenjia1.github.io/2020/08/09/20200814/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -449,11 +484,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/GO/" rel="tag"><i class="fa fa-tag"></i> GO</a>
-          
-            <a href="/tags/生物信息/" rel="tag"><i class="fa fa-tag"></i> 生物信息</a>
-          
-            <a href="/tags/算法/" rel="tag"><i class="fa fa-tag"></i> 算法</a>
+            <a href="/tags/SNP变异，检测软件/" rel="tag"><i class="fa fa-tag"></i> SNP变异，检测软件</a>
           
         </div>
       
@@ -466,8 +497,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/19/20180320/" rel="next" title="区块链学习笔记（二）">
-                <i class="fa fa-chevron-left"></i> 区块链学习笔记（二）
+              <a href="/2020/08/06/20200806/" rel="next" title="变异检测（二）之CNV检测">
+                <i class="fa fa-chevron-left"></i> 变异检测（二）之CNV检测
               </a>
             
           </div>
@@ -475,10 +506,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/07/23/20200727/" rel="prev" title="序列比对（二） 局部比对算法以及两种空位插入的优化策略">
-                序列比对（二） 局部比对算法以及两种空位插入的优化策略 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -621,7 +648,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#（1）序列比对："><span class="nav-number">1.</span> <span class="nav-text">（1）序列比对：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#精确比对：NW算法的实现，SW算法的实现"><span class="nav-number">1.0.1.</span> <span class="nav-text">精确比对：NW算法的实现，SW算法的实现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#启发式比对：BLAST算法的实现"><span class="nav-number">1.0.2.</span> <span class="nav-text">启发式比对：BLAST算法的实现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#其他比对：BWT比对算法的实现"><span class="nav-number">1.0.3.</span> <span class="nav-text">其他比对：BWT比对算法的实现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#多序列比对算法的实现"><span class="nav-number">1.0.4.</span> <span class="nav-text">多序列比对算法的实现</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（2）变异检测："><span class="nav-number">2.</span> <span class="nav-text">（2）变异检测：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#SNV检测：遗传性变异检测算法的实现，体细胞变异检测算法的实现"><span class="nav-number">2.0.1.</span> <span class="nav-text">SNV检测：遗传性变异检测算法的实现，体细胞变异检测算法的实现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Indel检测：重比对检测算法的实现，局部组装检测算法的实现"><span class="nav-number">2.0.2.</span> <span class="nav-text">Indel检测：重比对检测算法的实现，局部组装检测算法的实现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CNV检测：Exon-CNV检测算法的实现，全基因组CNV检测算法的实现"><span class="nav-number">2.0.3.</span> <span class="nav-text">CNV检测：Exon CNV检测算法的实现，全基因组CNV检测算法的实现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SV-FUSION检测：Split-reads重比对检测算法的实现，DNA-RNA分析算法的实现"><span class="nav-number">2.0.4.</span> <span class="nav-text">SV/FUSION检测：Split reads重比对检测算法的实现，DNA/RNA分析算法的实现</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（3）变异注释："><span class="nav-number">3.</span> <span class="nav-text">（3）变异注释：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Annovar软件算法的实现"><span class="nav-number">3.0.1.</span> <span class="nav-text">Annovar软件算法的实现</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（4）基因表型分析软件"><span class="nav-number">4.</span> <span class="nav-text">（4）基因表型分析软件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Exomiser的基本算法介绍"><span class="nav-number">4.0.1.</span> <span class="nav-text">Exomiser的基本算法介绍</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（5）ACMG自动化"><span class="nav-number">5.</span> <span class="nav-text">（5）ACMG自动化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#SNV-CNV自动化分类"><span class="nav-number">5.0.1.</span> <span class="nav-text">SNV/CNV自动化分类</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（6）其他："><span class="nav-number">6.</span> <span class="nav-text">（6）其他：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#UPD-LOH检测算法的实现"><span class="nav-number">6.0.1.</span> <span class="nav-text">UPD/LOH检测算法的实现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HLA分型"><span class="nav-number">6.0.2.</span> <span class="nav-text">HLA分型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#性别计算"><span class="nav-number">6.0.3.</span> <span class="nav-text">性别计算</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#可视化交互界面的实现"><span class="nav-number">6.0.4.</span> <span class="nav-text">可视化交互界面的实现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#流程构建框架"><span class="nav-number">6.0.5.</span> <span class="nav-text">流程构建框架</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#TMB的计算"><span class="nav-number">6.0.6.</span> <span class="nav-text">TMB的计算</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#MSI的分析"><span class="nav-number">6.0.7.</span> <span class="nav-text">MSI的分析</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#算法简介"><span class="nav-number">2.</span> <span class="nav-text">算法简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#点突变的检测"><span class="nav-number">2.1.</span> <span class="nav-text">点突变的检测</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#第一个贝叶斯分类器"><span class="nav-number">2.1.0.0.1.</span> <span class="nav-text">第一个贝叶斯分类器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第二个贝叶斯分类器"><span class="nav-number">2.1.0.0.2.</span> <span class="nav-text">第二个贝叶斯分类器</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>

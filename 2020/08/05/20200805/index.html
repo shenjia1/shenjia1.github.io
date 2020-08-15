@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="生物信息GO">
 <meta property="og:description" content="引言变异检测是人类基因组重测序过程中，比较重要的一个步骤。我们使用比对软件将二代测序得到的短序列映射到人类的参考基因组上之后，便是需要进行变异检测。所谓变异，分为点突变，插入删除，拷贝数变异，结构变异等等。不同变异的检测方法不同，当然针对不同类型的测序数据，也需要使用不同的检测方法。点突变的检测相对比较简单，需要从比对结果中找突变的位置，并通过统计学算法区分测序错误，比对错误和真实变异。 拷贝数变">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-08-05T15:59:00.429Z">
+<meta property="og:updated_time" content="2020-08-15T10:46:17.769Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="变异检测（一）之CNV检测">
 <meta name="twitter:description" content="引言变异检测是人类基因组重测序过程中，比较重要的一个步骤。我们使用比对软件将二代测序得到的短序列映射到人类的参考基因组上之后，便是需要进行变异检测。所谓变异，分为点突变，插入删除，拷贝数变异，结构变异等等。不同变异的检测方法不同，当然针对不同类型的测序数据，也需要使用不同的检测方法。点突变的检测相对比较简单，需要从比对结果中找突变的位置，并通过统计学算法区分测序错误，比对错误和真实变异。 拷贝数变">
@@ -375,7 +375,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,288
+                  1,460
                 </span>
               
 
@@ -391,7 +391,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4
+                  5
                 </span>
               
             </div>
@@ -424,6 +424,26 @@
 <h1 id="拷贝数检测几个相关问题"><a href="#拷贝数检测几个相关问题" class="headerlink" title="拷贝数检测几个相关问题"></a>拷贝数检测几个相关问题</h1><h3 id="（1）序列数和平均测序深度"><a href="#（1）序列数和平均测序深度" class="headerlink" title="（1）序列数和平均测序深度"></a>（1）序列数和平均测序深度</h3><p>我认为统计序列数和平均深度差异并不是很大，可能在测序深度很深情况下，对于较小的CNV检测是会有影响，因为两者在区域边缘处理上会有所差异。</p>
 <h3 id="（2）参照集的选择"><a href="#（2）参照集的选择" class="headerlink" title="（2）参照集的选择"></a>（2）参照集的选择</h3><p>参照集的选择建议尽量选择同一个实验批次的样本，最为合适。这里对于全外显子组数据要求更高。</p>
 <h3 id="（3）杂合子分析"><a href="#（3）杂合子分析" class="headerlink" title="（3）杂合子分析"></a>（3）杂合子分析</h3><p>由于拷贝数的变化也会引起该区域内杂合子的缺失，所以有时杂合子的缺失也是拷贝数变异的一个佐证，在分析过程中，有的算法也会把这部分的信息考虑进来。</p>
+<h2 id="三、全基因组拷贝数检测方法Go实现（CNVgo）"><a href="#三、全基因组拷贝数检测方法Go实现（CNVgo）" class="headerlink" title="三、全基因组拷贝数检测方法Go实现（CNVgo）"></a>三、全基因组拷贝数检测方法Go实现（CNVgo）</h2><p>解决难点：</p>
+<blockquote>
+<ol>
+<li>GC校正方法：中位数校正，回归校正</li>
+<li>并行计算覆盖度或reads数目</li>
+<li>区域识别，CBS算法实现，HMM算法实现</li>
+<li>非整倍体识别</li>
+<li>批量检测，固定参照集，无参照集</li>
+</ol>
+</blockquote>
+<p>计划算法：</p>
+<ol>
+<li>并行快速计算覆盖度，输入文件是bam文件；</li>
+<li>去除同源区域或异常区域</li>
+<li>将窗口大小，滑动大小设置为参数</li>
+<li>多种校正方法选择，多种识别方法选择</li>
+<li>兼容非整倍体识别</li>
+<li>可选对照集</li>
+<li>绘制必要的图表</li>
+</ol>
 
       
     </div>
@@ -567,7 +587,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -580,7 +600,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -629,7 +649,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#拷贝数变异检测算法"><span class="nav-number">2.</span> <span class="nav-text">拷贝数变异检测算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、全基因组检测方法"><span class="nav-number">2.1.</span> <span class="nav-text">一、全基因组检测方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（1）划分窗口"><span class="nav-number">2.1.1.</span> <span class="nav-text">（1）划分窗口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（2）统计每一个窗口的序列计数或平均深度"><span class="nav-number">2.1.2.</span> <span class="nav-text">（2）统计每一个窗口的序列计数或平均深度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（3）对计数或深度进行校正"><span class="nav-number">2.1.3.</span> <span class="nav-text">（3）对计数或深度进行校正</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（4）对完成校正后的数据进行CNV检测"><span class="nav-number">2.1.4.</span> <span class="nav-text">（4）对完成校正后的数据进行CNV检测</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、全外显子组检测方法"><span class="nav-number">2.2.</span> <span class="nav-text">二、全外显子组检测方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#拷贝数检测几个相关问题"><span class="nav-number">3.</span> <span class="nav-text">拷贝数检测几个相关问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（1）序列数和平均测序深度"><span class="nav-number">3.0.1.</span> <span class="nav-text">（1）序列数和平均测序深度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（2）参照集的选择"><span class="nav-number">3.0.2.</span> <span class="nav-text">（2）参照集的选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（3）杂合子分析"><span class="nav-number">3.0.3.</span> <span class="nav-text">（3）杂合子分析</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#拷贝数变异检测算法"><span class="nav-number">2.</span> <span class="nav-text">拷贝数变异检测算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、全基因组检测方法"><span class="nav-number">2.1.</span> <span class="nav-text">一、全基因组检测方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（1）划分窗口"><span class="nav-number">2.1.1.</span> <span class="nav-text">（1）划分窗口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（2）统计每一个窗口的序列计数或平均深度"><span class="nav-number">2.1.2.</span> <span class="nav-text">（2）统计每一个窗口的序列计数或平均深度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（3）对计数或深度进行校正"><span class="nav-number">2.1.3.</span> <span class="nav-text">（3）对计数或深度进行校正</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（4）对完成校正后的数据进行CNV检测"><span class="nav-number">2.1.4.</span> <span class="nav-text">（4）对完成校正后的数据进行CNV检测</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、全外显子组检测方法"><span class="nav-number">2.2.</span> <span class="nav-text">二、全外显子组检测方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#拷贝数检测几个相关问题"><span class="nav-number">3.</span> <span class="nav-text">拷贝数检测几个相关问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（1）序列数和平均测序深度"><span class="nav-number">3.0.1.</span> <span class="nav-text">（1）序列数和平均测序深度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（2）参照集的选择"><span class="nav-number">3.0.2.</span> <span class="nav-text">（2）参照集的选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（3）杂合子分析"><span class="nav-number">3.0.3.</span> <span class="nav-text">（3）杂合子分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、全基因组拷贝数检测方法Go实现（CNVgo）"><span class="nav-number">3.1.</span> <span class="nav-text">三、全基因组拷贝数检测方法Go实现（CNVgo）</span></a></li></ol></li></ol></div>
             
 
           </div>
